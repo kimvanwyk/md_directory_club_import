@@ -35,7 +35,7 @@ class DBHandler(object):
 
         t = self.tables['officertitle']
         res = self.conn.execute(t.select()).fetchall()
-        self.officers = dict((r.title, r.id) for r in res)
+        self.officers = {r.title: r.id for r in res}
 
     def set_club_id(self, club_id):
         self.club_id = club_id
@@ -116,5 +116,4 @@ def get_db_settings(fn="db_settings.ini", sec="DB"):
 
 
 def get_db_handler(year, db_settings_fn="db_settings.ini", db_settings_sec="DB"):
-    db = DBHandler(year, **get_db_settings(db_settings_fn, db_settings_sec))
-    return db
+    return DBHandler(year, **get_db_settings(db_settings_fn, db_settings_sec))
